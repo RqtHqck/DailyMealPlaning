@@ -1,0 +1,178 @@
+﻿@model List<Category>
+
+<h1 style="display: flex; justify-content: space-between; align-items: center;">
+    Каталог продуктов
+    <!-- Кнопка для открытия формы добавления категории, размещена справа от заголовка -->
+    <button id="addCategoryButton" onclick="toggleAddCategoryForm()" style="background-color: green; border-radius: 5px; color: white; border: none; padding: 5px; cursor: pointer;">+</button>
+</h1>
+
+<!-- Форма добавления категории (сначала скрыта) -->
+<div id="addCategoryForm" class="modal" style="display: none;">
+    <div class="modal-content">
+        <h3>Добавить категорию</h3>
+        <form method="post" asp-action="AddCategory">
+            <div>
+                <label for="categoryName">Название категории:</label>
+                <input type="text" id="categoryName" name="categoryName" required />
+            </div>
+            <div>
+                <button type="submit">Добавить</button>
+                <button type="button" onclick="toggleAddCategoryForm()">Отмена</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="category-list">
+    @foreach (var category in Model)
+    {
+        <div class="category-card" style="margin-bottom: 20px; border: 1px solid #ddd; padding: 15px;">
+            <div class="category-header" style="cursor: pointer;" onclick="toggleProducts(this)">
+                <h2 style="margin: 0; display: inline-block;">@category.Name</h2>
+
+                <!-- Кнопки для добавления и удаления продуктов -->
+                <div class="category-buttons">
+                    <button class="add-product-button" onclick="toggleAddProductForm('@category.Name')">+</button>
+                    <form method="post" asp-action="DeleteCategory" style="display: inline;">
+                        <input type="hidden" name="categoryName" value="@category.Name" />
+                        <button type="submit" class="delete-category-button" 
+                                onclick="return confirm('Вы уверены, что хотите удалить категорию @category.Name?');">×</button>
+                    </form>
+                </div>
+            </div>
+
+            @if (!string.IsNullOrEmpty(category.Description))
+            {
+                <p style="margin: 5px 0 0 0; font-style: italic; color: gray;">@category.Description</p>
+            }
+
+            <div class="products-list" style="display: none; margin-top: 10px; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                @foreach (var product in category.Products)
+                {
+                    <div class="product-card" style="border: 1px solid #eee; padding: 10px;">
+                        <h3>@product.Name</h3>
+                        <p><strong>Калории:</strong> @product.Calories ккал/100г</p>
+                        <p><strong>Белки:</strong> @product.Protein г</p>
+                        <p><strong>Жиры:</strong> @product.Fats г</p>
+                        <p><strong>Углеводы:</strong> @product.Carbs г</p>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+@section Scripts {
+<script>
+    function toggleProducts(headerElement) {
+        const productsList = headerElement.nextElementSibling;
+        if (productsList.style.display === 'none' || productsList.style.display === '') {
+            productsList.style.display = 'grid';
+        } else {
+            productsList.style.display = 'none';
+        }
+    }
+
+    function toggleAddCategoryForm() {
+        const form = document.getElementById('addCategoryForm');
+        form.style.display = form.style.display === 'none' || form.style.display === '' ? 'flex' : 'none';
+    }
+
+    function deleteCategory(categoryName) {
+        if (confirm('Вы уверены, что хотите удалить категорию "' + categoryName +'"?')) {
+            alert('Категория удалена');
+        }
+    }
+
+    function toggleAddProductForm(categoryName) {
+        // Логика для добавления продукта
+        alert('Открыть форму добавления продукта в категорию ' + categoryName);
+    }
+</script>
+}
+
+
+<!-- Добавьте следующий стиль CSS в ваш проект для модального окна и стилизации кнопок -->
+<style>
+    /* Стили для модального окна */
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px; /* Добавляем скругление для модального окна */
+        width: 400px;
+        text-align: center;
+    }
+
+    /* Стили для карточек категорий */
+    .category-card {
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 10px; /* Добавляем скругление для карточек */
+    }
+
+    .category-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* Стили для кнопок справа */
+    .category-buttons {
+        display: flex;
+        gap: 10px;
+        border-radius: 5px;
+    }
+
+    .delete-category-button {
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px; /* Добавляем скругление для кнопки удаления */
+    }
+
+    .add-product-button {
+        background-color: green;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px; /* Добавляем скругление для кнопки добавления продукта */
+    }
+
+    /* Стили для карточек продуктов */
+    .product-card {
+        border: 1px solid #eee;
+        padding: 10px;
+        border-radius: 10px; /* Добавляем скругление для карточек продуктов */
+    }
+
+    /* Стили для заголовков */
+    .category-header h2 {
+        margin: 0;
+        display: inline-block;
+        font-size: 1.5em;
+    }
+
+    /* Стили для списка продуктов */
+    .products-list {
+        display: none;
+        margin-top: 10px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+</style>
+
