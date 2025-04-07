@@ -4,7 +4,45 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<XmlDataService>();
+// Для разных сервисов можно использовать разные файлы:
+builder.Services.AddScoped<XmlProductService>(provider => 
+{
+    var fileService = new XmlProductsFileLoader(
+        provider.GetRequiredService<IWebHostEnvironment>(),
+        "products.xml"
+    );
+    return new XmlProductService(fileService);
+});
+
+builder.Services.AddScoped<XmlCategoryService>(provider => 
+{
+    var fileService = new XmlProductsFileLoader(
+        provider.GetRequiredService<IWebHostEnvironment>(),
+        "products.xml"
+    );
+    return new XmlCategoryService(fileService);
+});
+
+builder.Services.AddScoped<XmlMealPlanService>(provider => 
+{
+    var fileService = new XmlUserFileLoader(
+        provider.GetRequiredService<IWebHostEnvironment>(),
+        "user.xml"
+    );
+    return new XmlMealPlanService(fileService);
+});
+
+// builder.Services.AddScoped<XmlUserService>(provider => 
+// {
+//     var fileService = new XmlFileService(
+//         provider.GetRequiredService<IWebHostEnvironment>(),
+//         "user.xml"
+//     );
+//     return new XmlUserService(fileService);
+// });
+
+
+
 
 var app = builder.Build();
 
