@@ -48,6 +48,8 @@ public class FoodController : Controller
         }
     }
 
+    
+    // Действие для добавления продукта
     [HttpPost]
     public IActionResult AddProduct(string categoryName, Product product)
     {
@@ -62,5 +64,22 @@ public class FoodController : Controller
 
         return RedirectToAction("Index");
     }
+    
+    
+    [HttpPost]
+    public IActionResult DeleteProduct(string categoryName, string productName)
+    {
+        try
+        {
+            _dataService.DeleteProduct(categoryName, productName);
+        }
+        catch (Exception ex)
+        {
+            TempData["ErrorMessage"] = "Ошибка при удалении продукта: " + ex.Message;
+        }
+
+        return RedirectToAction("Index");
+    }
+
 
 }

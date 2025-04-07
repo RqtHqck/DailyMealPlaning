@@ -65,30 +65,6 @@
       <Carbs>26,20</Carbs>
       <Calories>264</Calories>
     </Product>
-    <Product>
-      <Name>Шницель</Name>
-      <Gramms>100</Gramms>
-      <Protein>17,60</Protein>
-      <Fats>25,10</Fats>
-      <Carbs>10,20</Carbs>
-      <Calories>338</Calories>
-    </Product>
-    <Product>
-      <Name>Шницель свиной</Name>
-      <Gramms>100</Gramms>
-      <Protein>18,80</Protein>
-      <Fats>32,10</Fats>
-      <Carbs>9,80</Carbs>
-      <Calories>404</Calories>
-    </Product>
-    <Product>
-      <Name>Параша какая-то</Name>
-      <Gramms>100</Gramms>
-      <Protein>28,00</Protein>
-      <Fats>100,00</Fats>
-      <Carbs>12,00</Carbs>
-      <Calories>500</Calories>
-    </Product>
   </Category>
   <Category name="Грибы" description="">
     <Product>

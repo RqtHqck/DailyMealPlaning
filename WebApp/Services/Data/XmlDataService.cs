@@ -116,6 +116,27 @@ public class XmlDataService
     }
     
     
+    // Удаление продукта из категории
+    public void DeleteProduct(string categoryName, string productName)
+    {
+        var doc = XDocument.Load(_xmlPath);
+        var category = doc.Root.Elements("Category")
+            .FirstOrDefault(c => (string)c.Attribute("name") == categoryName);
+
+        if (category == null)
+            throw new Exception("Категория не найдена.");
+
+        var product = category.Elements("Product")
+            .FirstOrDefault(p => (string)p.Element("Name") == productName);
+
+        if (product == null)
+            throw new Exception("Продукт не найден.");
+
+        product.Remove();
+        doc.Save(_xmlPath);
+    }
+    
+    
     // Метод добавления категории
     public void AddCategory(string categoryName, string description="")
     {
