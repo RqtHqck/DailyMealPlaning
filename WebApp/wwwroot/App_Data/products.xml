@@ -81,6 +81,14 @@
       <Carbs>9,80</Carbs>
       <Calories>404</Calories>
     </Product>
+    <Product>
+      <Name>Параша какая-то</Name>
+      <Gramms>100</Gramms>
+      <Protein>28,00</Protein>
+      <Fats>100,00</Fats>
+      <Carbs>12,00</Carbs>
+      <Calories>500</Calories>
+    </Product>
   </Category>
   <Category name="Грибы" description="">
     <Product>

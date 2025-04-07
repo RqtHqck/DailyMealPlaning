@@ -33,25 +33,34 @@ public class FoodController : Controller
     }
 
     // Действие для удаления категории
-[HttpPost]
-public IActionResult DeleteCategory(string categoryName)
-{
-    try
+    [HttpPost]
+    public IActionResult DeleteCategory(string categoryName)
     {
-        _dataService.DeleteCategory(categoryName);
-        return RedirectToAction("Index"); // Перенаправление на ту же страницу
+        try
+        {
+            _dataService.DeleteCategory(categoryName);
+            return RedirectToAction("Index"); // Перенаправление на ту же страницу
+        }
+        catch (Exception ex)
+        {
+            TempData["ErrorMessage"] = "Не удалось удалить категорию: " + ex.Message;
+            return RedirectToAction("Index");
+        }
     }
-    catch (Exception ex)
+
+    [HttpPost]
+    public IActionResult AddProduct(string categoryName, Product product)
     {
-        TempData["ErrorMessage"] = "Не удалось удалить категорию: " + ex.Message;
+        try
+        {
+            _dataService.AddProduct(categoryName, product);
+        }
+        catch (Exception ex)
+        {
+            TempData["ErrorMessage"] = "Ошибка при добавлении продукта: " + ex.Message;
+        }
+
         return RedirectToAction("Index");
     }
-}
 
-    // [HttpPost]
-    // public IActionResult AddProduct(string categoryName, Product product)
-    // {
-    //     _dataService.AddProduct(categoryName, product);
-    //     return RedirectToAction("Index");
-    // }
 }
