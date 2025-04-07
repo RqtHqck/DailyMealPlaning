@@ -1,0 +1,18 @@
+﻿@model List<MealItem>
+
+
+<h2>План питания</h2>
+<a asp-action="Create" class="btn btn-primary">Добавить приём пищи</a>
+
+@foreach (var item in Model)
+{
+    <div class="card mt-3 p-2">
+        <h4>@item.GetDisplayType() - @item.Name</h4>
+        <ul>
+            @foreach (var product in item.Products)
+            {
+                <li>@product.Name (@product.Gramms г, Б: @product.Protein, Ж: @product.Fats, У: @product.Carbs)</li>
+            }
+        </ul>
+    </div>
+}
