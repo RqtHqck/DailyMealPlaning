@@ -6,6 +6,14 @@
     <button id="addCategoryButton" onclick="toggleAddCategoryForm()" style="background-color: green; border-radius: 5px; color: white; border: none; padding: 5px; cursor: pointer;">+</button>
 </h1>
 
+<!-- Поиск и кнопка свернуть все -->
+<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+    <input type="text" id="searchInput" oninput="filterProducts()" placeholder="Поиск продукта по названию..." style="flex: 1; padding: 8px; border-radius: 5px; border: 1px solid #ccc;" />
+    <button onclick="collapseAllCategories()" style="background-color: #555; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer;">
+        Свернуть все
+    </button>
+</div>
+
 <!-- Форма добавления категории (сначала скрыта) -->
 <div id="addCategoryForm" class="modal" style="display: none;">
     <div class="modal-content">
@@ -102,7 +110,33 @@
     }
 </div>
 @section Scripts {
-<script>
+    <script>
+    function filterProducts() {
+        const searchTerm = document.getElementById('productSearch').value.toLowerCase();
+        const productCards = document.querySelectorAll('.product-card');
+
+        productCards.forEach(card => {
+            const productName = card.querySelector('h3').innerText.toLowerCase();
+            if (productName.includes(searchTerm)) {
+                card.style.display = 'block';
+                card.closest('.products-list').style.display = 'grid'; // раскрыть родительскую категорию
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        // Скрываем категории, если у них нет видимых продуктов
+        const categoryCards = document.querySelectorAll('.category-card');
+        categoryCards.forEach(category => {
+            const visibleProducts = category.querySelectorAll('.product-card:not([style*="display: none"])');
+            const productsList = category.querySelector('.products-list');
+            if (visibleProducts.length === 0) {
+                productsList.style.display = 'none';
+            } else {
+                productsList.style.display = 'grid';
+            }
+        });
+    }
     function toggleProducts(headerElement) {
         const productsList = headerElement.nextElementSibling;
         if (productsList.style.display === 'none' || productsList.style.display === '') {
@@ -129,7 +163,13 @@
             form.style.display = (form.style.display === 'none' || form.style.display === '') ? 'flex' : 'none';
         }
     }
-</script>
+    function collapseAllCategories() {
+        const allProductLists = document.querySelectorAll('.products-list');
+        allProductLists.forEach(list => {
+            list.style.display = 'none';
+        });
+    }
+    </script>
 }
 
 
