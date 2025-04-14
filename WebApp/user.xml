@@ -1,12 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Db>
-  <User>
-    <Weight>100</Weight>
-    <Height>190</Height>
-    <Age>19</Age>
-    <ActivityLevel>Low</ActivityLevel>
-    <Calories>2254.37</Calories>
-  </User>
   <MealsPlan>
     <MealItem name="Спорт " type="Breakfast">
       <Product>

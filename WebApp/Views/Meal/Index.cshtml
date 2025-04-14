@@ -5,6 +5,9 @@
 <h2>План питания</h2>
 
 <a asp-action="Create" class="btn btn-primary mb-3">Добавить приём пищи</a>
+<form asp-action="DownloadMealPlan" method="get">
+    <button type="submit" class="btn btn-primary">Скачать план питания</button>
+</form>
 
 @{
     int mealIndex = 0;

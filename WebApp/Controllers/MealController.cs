@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using WebApp.Models;
 using WebApp.Services.Data;
 
@@ -66,43 +65,18 @@ namespace WebApp.Controllers
             }
             return RedirectToAction("Index");
         }
-
-        [HttpPost]
-        public IActionResult UpdateMeal(int mealIndex, MealItem updatedMeal)
+        
+        // New Action for saving the meal plan to a file
+        [HttpGet]
+        public IActionResult DownloadMealPlan()
         {
-            var plan = _mealPlanService.GetMealPlan();
-            if (mealIndex < 0 || mealIndex >= plan.MealItems.Count)
-            {
-                return RedirectToAction("Index");
-            }
+            var mealPlan = _mealPlanService.GetMealPlan();
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "user.xml"); // Define the file path where you want to save the XML file
+            _mealPlanService.SaveMealPlanToFile(mealPlan, filePath);
 
-            // Получаем исходный прием для обновления
-            var origMeal = plan.MealItems[mealIndex];
-
-            // Обновляем название и тип приема
-            origMeal.Name = updatedMeal.Name;
-            origMeal.Type = updatedMeal.Type;
-
-            // Для каждого продукта, переданного в форме обновления,
-            // обновляем только значение веса в исходном приеме, сопоставляя по имени продукта.
-            foreach (var updatedProduct in updatedMeal.Products)
-            {
-                var origProduct = origMeal.Products.FirstOrDefault(p => p.Name == updatedProduct.Name);
-                if (origProduct != null)
-                {
-                    origProduct.Gramms = updatedProduct.Gramms;
-                    // Если требуется, здесь можно добавить пересчет остальных показателей,
-                    // например: origProduct.Protein = CalculateProtein(origProduct, updatedProduct.Gramms);
-                }
-                else
-                {
-                    // Если продукт новый, можно добавить его в коллекцию
-                    origMeal.Products.Add(updatedProduct);
-                }
-            }
-
-            _mealPlanService.SaveMealPlan(plan);
-            return RedirectToAction("Index");
+            // Return the file for download
+            var fileBytes = System.IO.File.ReadAllBytes(filePath);
+            return File(fileBytes, "application/xml", "user.xml");
         }
     }
 }

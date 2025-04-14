@@ -65,6 +65,5 @@ public class XmlUserFileLoader : IDisposable
             _lock.ExitWriteLock();
         }
     }
-
     public void Dispose() => _lock.Dispose();
 }
