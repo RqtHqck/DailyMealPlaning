@@ -11,6 +11,33 @@ public class XmlProductService
     {
         _productsFileLoader = productsFileLoader;
     }
+    
+    
+    public List<Product> GetAllProducts()
+    {
+        var doc = _productsFileLoader.Document;
+        var allProducts = new List<Product>();
+
+        // Перебираем все категории
+        foreach (var category in doc.Root.Elements("Category"))
+        {
+            // Получаем все продукты в текущей категории
+            var productsInCategory = category.Elements("Product")
+                .Select(p => new Product
+                {
+                    Name = (string)p.Element("Name"),
+                    Gramms = XmlDecimalParser.ParseDecimalSafe(p.Element("Gramms")),
+                    Protein = XmlDecimalParser.ParseDecimalSafe(p.Element("Protein")),
+                    Fats = XmlDecimalParser.ParseDecimalSafe(p.Element("Fats")),
+                    Carbs = XmlDecimalParser.ParseDecimalSafe(p.Element("Carbs")),
+                    Calories = XmlDecimalParser.ParseDecimalSafe(p.Element("Calories"))
+                });
+
+            allProducts.AddRange(productsInCategory);
+        }
+
+        return allProducts;
+    }
 
     
     public List<Product> GetProducts(string categoryName)

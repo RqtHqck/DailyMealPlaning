@@ -33,15 +33,15 @@ public class MealItem
 
 public enum MealType
 {
-    [XmlEnum("Breakfast")]
+    [XmlEnum("Завтрак")]
     Breakfast,
 
-    [XmlEnum("Lunch")]
+    [XmlEnum("Обед")]
     Lunch,
 
-    [XmlEnum("Dinner")]
+    [XmlEnum("Ужин")]
     Dinner,
 
-    [XmlEnum("Custom")]
+    [XmlEnum("Настроить")]
     Custom
 }

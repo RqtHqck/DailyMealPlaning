@@ -20,6 +20,15 @@ public class FoodController(XmlProductService productService, XmlCategoryService
     
         return View(categories);
     }
+    
+    
+    public IActionResult AllProducts()
+    {
+        var products = productService.GetAllProducts();
+        return View(products);
+    }
+    
+    
     // Действие для добавления категории
     [HttpPost]
     public IActionResult AddCategory(string categoryName)

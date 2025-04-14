@@ -4,14 +4,8 @@ using WebApp.Services.Data;
 
 namespace WebApp.Controllers;
 
-public class MealController: Controller
+public class MealController(XmlProductService productService, XmlMealPlanService _mealPlanService): Controller
 {
-    private readonly XmlMealPlanService _mealPlanService;
-
-    public MealController(XmlMealPlanService mealPlanService)
-    {
-        _mealPlanService = mealPlanService;
-    }
     
     public IActionResult Index()
     {
@@ -24,6 +18,7 @@ public class MealController: Controller
     public IActionResult Create()
     {
         ViewBag.MealTypes = Enum.GetValues(typeof(MealType)).Cast<MealType>();
+        ViewBag.AllProducts = productService.GetAllProducts(); // Получаем все продукты
         return View(new MealItem());
     }
 

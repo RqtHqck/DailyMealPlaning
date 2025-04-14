@@ -1,11 +1,18 @@
 ﻿@model WebApp.Models.MealItem
 @{
     var types = (IEnumerable<WebApp.Models.MealType>)ViewBag.MealTypes;
+    var allProducts = (List<WebApp.Models.Product>)ViewBag.AllProducts;
 }
 
 <h2>Создать приём пищи</h2>
 
 <form asp-action="Create" method="post">
+    <!-- Лента результатов поиска -->
+    <div id="productResults" class="border p-2 mb-3 d-flex flex-nowrap gap-2 overflow-auto" 
+         style="max-width: 100%; display: none;">
+        <!-- Сюда будут вставляться найденные продукты -->
+    </div>
+
     <div class="form-group">
         <label>Тип</label>
         <select asp-for="Type" class="form-control" onchange="onTypeChange(this)">
@@ -34,25 +41,79 @@
     <button type="submit" class="btn btn-success">Сохранить</button>
 </form>
 
-@section Scripts {
-    <script>
-        function onTypeChange(select) {
-            const div = document.getElementById('customTypeNameDiv');
-            div.style.display = select.value === 'Custom' ? 'block' : 'none';
+<script>
+    let productIndex = 0;
+    let activeProductIndex = -1;
+    let allProducts = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(allProducts));
+
+    function addProduct() {
+        const list = document.getElementById('product-list');
+        const wrapper = document.createElement('div');
+        wrapper.className = "border p-2 mb-2 product-item";
+
+        const nameInput = document.createElement('input');
+        nameInput.name = `Products[${productIndex}].Name`;
+        nameInput.placeholder = "Название продукта";
+        nameInput.className = "form-control mb-1 product-name";
+        nameInput.required = true;
+        nameInput.setAttribute('data-index', productIndex);
+        nameInput.addEventListener('input', (e) => handleProductSearch(e.target));
+        nameInput.addEventListener('focus', () => {
+            activeProductIndex = productIndex;
+            handleProductSearch(nameInput);
+        });
+
+        const grammsInput = document.createElement('input');
+        grammsInput.name = `Products[${productIndex}].Gramms`;
+        grammsInput.placeholder = "Граммы";
+        grammsInput.className = "form-control mb-1";
+        grammsInput.type = "number";
+        grammsInput.required = true;
+
+        wrapper.appendChild(nameInput);
+        wrapper.appendChild(grammsInput);
+        list.appendChild(wrapper);
+
+        productIndex++;
+        nameInput.focus();
+    }
+
+    function handleProductSearch(input) {
+        const searchTerm = input.value.toLowerCase();
+        const resultsContainer = document.getElementById('productResults');
+        resultsContainer.innerHTML = '';
+
+        if (!searchTerm) {
+            resultsContainer.style.display = 'none';
+            return;
         }
 
-        let productIndex = 0;
+        // Фильтруем продукты по имени
+        const matches = allProducts.filter(p => p.Name.toLowerCase().includes(searchTerm));
 
-        function addProduct() {
-            const list = document.getElementById('product-list');
-            const html = `
-                <div class="border p-2 mb-2">
-                    <input name="Products[${productIndex}].Name" placeholder="Название" class="form-control mb-1" required />
-                    <input name="Products[${productIndex}].Gramms" placeholder="Граммы" class="form-control mb-1" type="number" required />
-                </div>
-            `;
-            list.insertAdjacentHTML('beforeend', html);
-            productIndex++;
+        if (matches.length > 0) {
+            matches.forEach(product => {
+                const item = document.createElement('div');
+                item.className = 'product-card border rounded p-2';
+                item.style.minWidth = '150px';
+                item.style.cursor = 'pointer';
+                item.innerHTML = `
+                    <div>${product.Name}</div>
+                    <small class="text-muted">${product.Calories} ккал/100г</small>
+                `;
+                item.onclick = () => selectProduct(product, input);
+                resultsContainer.appendChild(item);
+            });
+            resultsContainer.style.display = 'flex';
+        } else {
+            resultsContainer.style.display = 'none';
         }
-    </script>
-}
+    }
+
+    function selectProduct(product, input) {
+        input.value = product.Name;
+        const grammsInput = input.parentElement.querySelector('input[type="number"]');
+        if (grammsInput) grammsInput.focus();
+        document.getElementById('productResults').style.display = 'none';
+    }
+</script>

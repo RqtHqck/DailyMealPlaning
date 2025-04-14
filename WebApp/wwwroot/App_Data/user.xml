@@ -1,5 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Db>
   <MealsPlan>
+    <MealItem name="Amoeba" type="Breakfast">
+      <Product>
+        <Name>залупа</Name>
+        <Gramms>13</Gramms>
+        <Protein>0.00</Protein>
+        <Fats>0.00</Fats>
+        <Carbs>0.00</Carbs>
+        <Calories>0</Calories>
+      </Product>
+      <Product>
+        <Name>говно</Name>
+        <Gramms>2000</Gramms>
+        <Protein>0.00</Protein>
+        <Fats>0.00</Fats>
+        <Carbs>0.00</Carbs>
+        <Calories>0</Calories>
+      </Product>
+    </MealItem>
+    <MealItem name="Параша какая-то" type="Dinner">
+      <Product>
+        <Name>го</Name>
+        <Gramms>20000</Gramms>
+        <Protein>0.00</Protein>
+        <Fats>0.00</Fats>
+        <Carbs>0.00</Carbs>
+        <Calories>0</Calories>
+      </Product>
+    </MealItem>
+    <MealItem name="Параша кака" type="Custom" customTypeName="Полдник">
+      <Product>
+        <Name>Белочный бульон</Name>
+        <Gramms>133</Gramms>
+        <Protein>0.00</Protein>
+        <Fats>0.00</Fats>
+        <Carbs>0.00</Carbs>
+        <Calories>0</Calories>
+      </Product>
+    </MealItem>
+    <MealItem name="хуйня ебаная" type="Breakfast">
+      <Product>
+        <Name>Мозги говяжьи</Name>
+        <Gramms>100</Gramms>
+        <Protein>0.00</Protein>
+        <Fats>0.00</Fats>
+        <Carbs>0.00</Carbs>
+        <Calories>0</Calories>
+      </Product>
+    </MealItem>
+    <MealItem name="Amoeba" type="Breakfast">
+      <Product>
+        <Name>Блины</Name>
+        <Gramms>30</Gramms>
+        <Protein>0.00</Protein>
+        <Fats>0.00</Fats>
+        <Carbs>0.00</Carbs>
+        <Calories>0</Calories>
+      </Product>
+    </MealItem>
   </MealsPlan>
 </Db>
