@@ -41,35 +41,36 @@ public class XmlMealPlanService
     
     public void SaveMealPlan(MealsPlan plan)
     {
-        var doc = new XDocument(
-            new XElement("Db",
-                new XElement("MealsPlan",
-                    plan.MealItems.Select(m =>
-                        new XElement("MealItem",
-                            new XAttribute("name", m.Name),
-                            new XAttribute("type", m.Type.ToString()),
-                            string.IsNullOrEmpty(m.CustomTypeName)
-                                ? null
-                                : new XAttribute("customTypeName", m.CustomTypeName),
-                            m.Products.Select(p =>
-                                new XElement("Product",
-                                    new XElement("Name", p.Name),
-                                    new XElement("Gramms", p.Gramms),
-                                    new XElement("Protein", p.Protein.ToString("0.00", CultureInfo.InvariantCulture)),
-                                    new XElement("Fats", p.Fats.ToString("0.00", CultureInfo.InvariantCulture)),
-                                    new XElement("Carbs", p.Carbs.ToString("0.00", CultureInfo.InvariantCulture)),
-                                    // Исправлено: Добавлено форматирование для Calories
-                                    new XElement("Calories", p.Calories.ToString("0.00", CultureInfo.InvariantCulture))
-                                )
-                            )
+        var doc = _userFileLoader.Document ?? new XDocument(new XElement("Db"));
+        var root = doc.Root ?? new XElement("Db");
+
+        // Удаляем старый узел <MealsPlan>, но НЕ трогаем <User>!
+        root.Element("MealsPlan")?.Remove();
+
+        var mealPlanElement = new XElement("MealsPlan",
+            plan.MealItems.Select(m =>
+                new XElement("MealItem",
+                    new XAttribute("name", m.Name),
+                    new XAttribute("type", m.Type.ToString()),
+                    string.IsNullOrEmpty(m.CustomTypeName) ? null : new XAttribute("customTypeName", m.CustomTypeName),
+                    m.Products.Select(p =>
+                        new XElement("Product",
+                            new XElement("Name", p.Name),
+                            new XElement("Gramms", p.Gramms),
+                            new XElement("Protein", p.Protein.ToString("0.00", CultureInfo.InvariantCulture)),
+                            new XElement("Fats", p.Fats.ToString("0.00", CultureInfo.InvariantCulture)),
+                            new XElement("Carbs", p.Carbs.ToString("0.00", CultureInfo.InvariantCulture)),
+                            new XElement("Calories", p.Calories.ToString("0.00", CultureInfo.InvariantCulture))
                         )
                     )
                 )
             )
         );
 
+        // Добавляем новый <MealsPlan> без удаления других данных
+        root.Add(mealPlanElement);
+
         _userFileLoader.Save(doc);
     }
-
 
 }

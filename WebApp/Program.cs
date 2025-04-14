@@ -32,14 +32,14 @@ builder.Services.AddScoped<XmlMealPlanService>(provider =>
     return new XmlMealPlanService(fileService);
 });
 
-// builder.Services.AddScoped<XmlUserService>(provider => 
-// {
-//     var fileService = new XmlFileService(
-//         provider.GetRequiredService<IWebHostEnvironment>(),
-//         "user.xml"
-//     );
-//     return new XmlUserService(fileService);
-// });
+builder.Services.AddScoped<XmlUserService>(provider =>
+{
+    var fileService = new XmlUserFileLoader(
+        provider.GetRequiredService<IWebHostEnvironment>(),
+        "user.xml"
+    );
+    return new XmlUserService(fileService);
+});
 
 
 

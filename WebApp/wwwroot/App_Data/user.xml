@@ -1,22 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Db>
+  <User>
+    <Weight>100</Weight>
+    <Height>190</Height>
+    <Age>19</Age>
+    <ActivityLevel>Low</ActivityLevel>
+    <Calories>2254.37</Calories>
+  </User>
   <MealsPlan>
-    <MealItem name="Спорт" type="Dinner">
+    <MealItem name="Хуйня питание" type="Custom">
       <Product>
-        <Name>Белые грибы сушеные</Name>
-        <Gramms>20</Gramms>
-        <Protein>20.10</Protein>
-        <Fats>4.80</Fats>
-        <Carbs>7.60</Carbs>
-        <Calories>152.00</Calories>
-      </Product>
-      <Product>
-        <Name>Молоко 3.2%-ной жирн.</Name>
-        <Gramms>70</Gramms>
-        <Protein>2.80</Protein>
-        <Fats>3.20</Fats>
-        <Carbs>4.70</Carbs>
-        <Calories>58.00</Calories>
+        <Name>Сморчки</Name>
+        <Gramms>220</Gramms>
+        <Protein>2.90</Protein>
+        <Fats>0.40</Fats>
+        <Carbs>0.20</Carbs>
+        <Calories>16.00</Calories>
       </Product>
     </MealItem>
   </MealsPlan>
