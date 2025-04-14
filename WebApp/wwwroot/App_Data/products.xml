@@ -1,119 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Db>
-  <Category name="Грибы" description="">
-    <Product>
-      <Name>Белые грибы</Name>
-      <Gramms>100</Gramms>
-      <Protein>3,70</Protein>
-      <Fats>1,70</Fats>
-      <Carbs>1,10</Carbs>
-      <Calories>23</Calories>
-    </Product>
-    <Product>
-      <Name>Белые грибы сушеные</Name>
-      <Gramms>100</Gramms>
-      <Protein>20,10</Protein>
-      <Fats>4,80</Fats>
-      <Carbs>7,60</Carbs>
-      <Calories>152</Calories>
-    </Product>
-    <Product>
-      <Name>Грузди</Name>
-      <Gramms>100</Gramms>
-      <Protein>1,80</Protein>
-      <Fats>0,80</Fats>
-      <Carbs>0,50</Carbs>
-      <Calories>16</Calories>
-    </Product>
-    <Product>
-      <Name>Лисички</Name>
-      <Gramms>100</Gramms>
-      <Protein>1,60</Protein>
-      <Fats>1,10</Fats>
-      <Carbs>1,50</Carbs>
-      <Calories>20</Calories>
-    </Product>
-    <Product>
-      <Name>Маслята</Name>
-      <Gramms>100</Gramms>
-      <Protein>2,40</Protein>
-      <Fats>0,70</Fats>
-      <Carbs>0,50</Carbs>
-      <Calories>9</Calories>
-    </Product>
-    <Product>
-      <Name>Опята</Name>
-      <Gramms>100</Gramms>
-      <Protein>2,20</Protein>
-      <Fats>1,20</Fats>
-      <Carbs>0,50</Carbs>
-      <Calories>17</Calories>
-    </Product>
-    <Product>
-      <Name>Подберезовики</Name>
-      <Gramms>100</Gramms>
-      <Protein>2,30</Protein>
-      <Fats>0,90</Fats>
-      <Carbs>1,40</Carbs>
-      <Calories>23</Calories>
-    </Product>
-    <Product>
-      <Name>Подберезовики сушеные</Name>
-      <Gramms>100</Gramms>
-      <Protein>23,50</Protein>
-      <Fats>9,20</Fats>
-      <Carbs>14,30</Carbs>
-      <Calories>231</Calories>
-    </Product>
-    <Product>
-      <Name>Подосиновики</Name>
-      <Gramms>100</Gramms>
-      <Protein>3,30</Protein>
-      <Fats>0,50</Fats>
-      <Carbs>1,20</Carbs>
-      <Calories>22</Calories>
-    </Product>
-    <Product>
-      <Name>Подосиновики сушеные</Name>
-      <Gramms>100</Gramms>
-      <Protein>35,40</Protein>
-      <Fats>5,40</Fats>
-      <Carbs>12,90</Carbs>
-      <Calories>239</Calories>
-    </Product>
-    <Product>
-      <Name>Рыжики</Name>
-      <Gramms>100</Gramms>
-      <Protein>1,90</Protein>
-      <Fats>0,80</Fats>
-      <Carbs>0,50</Carbs>
-      <Calories>17</Calories>
-    </Product>
-    <Product>
-      <Name>Сморчки</Name>
-      <Gramms>100</Gramms>
-      <Protein>2,90</Protein>
-      <Fats>0,40</Fats>
-      <Carbs>0,20</Carbs>
-      <Calories>16</Calories>
-    </Product>
-    <Product>
-      <Name>Сыроежки</Name>
-      <Gramms>100</Gramms>
-      <Protein>1,70</Protein>
-      <Fats>0,70</Fats>
-      <Carbs>1,50</Carbs>
-      <Calories>15</Calories>
-    </Product>
-    <Product>
-      <Name>Шампиньоны</Name>
-      <Gramms>100</Gramms>
-      <Protein>2,80</Protein>
-      <Fats>0,20</Fats>
-      <Carbs>3,80</Carbs>
-      <Calories>34</Calories>
-    </Product>
-  </Category>
   <Category name="Каши, крупы" description="">
     <Product>
       <Name>Геркулес</Name>
@@ -234,14 +120,6 @@
       <Fats>0,40</Fats>
       <Carbs>23,00</Carbs>
       <Calories>106</Calories>
-    </Product>
-    <Product>
-      <Name>Каша пшеничная вязкая на воде</Name>
-      <Gramms>100</Gramms>
-      <Protein>3,20</Protein>
-      <Fats>0,30</Fats>
-      <Carbs>18,70</Carbs>
-      <Calories>92</Calories>
     </Product>
     <Product>
       <Name>Каша пшеничная рассыпчатая</Name>
@@ -6904,4 +6782,5 @@
       <Calories>264</Calories>
     </Product>
   </Category>
+  <Category name="Ноунэйм" description="" />
 </Db>

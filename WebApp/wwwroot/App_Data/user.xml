@@ -8,14 +8,30 @@
     <Calories>2254.37</Calories>
   </User>
   <MealsPlan>
-    <MealItem name="Хуйня питание" type="Custom">
+    <MealItem name="Спорт " type="Breakfast">
       <Product>
-        <Name>Сморчки</Name>
-        <Gramms>220</Gramms>
-        <Protein>2.90</Protein>
-        <Fats>0.40</Fats>
-        <Carbs>0.20</Carbs>
+        <Name>Грузди</Name>
+        <Gramms>120</Gramms>
+        <Protein>1.80</Protein>
+        <Fats>0.80</Fats>
+        <Carbs>0.50</Carbs>
         <Calories>16.00</Calories>
+      </Product>
+      <Product>
+        <Name>Молоко 6 %-ной жир.</Name>
+        <Gramms>500</Gramms>
+        <Protein>3.00</Protein>
+        <Fats>6.00</Fats>
+        <Carbs>4.70</Carbs>
+        <Calories>84.00</Calories>
+      </Product>
+      <Product>
+        <Name>кефир 33 коровы 1%</Name>
+        <Gramms>70</Gramms>
+        <Protein>3.00</Protein>
+        <Fats>1.00</Fats>
+        <Carbs>4.05</Carbs>
+        <Calories>37.20</Calories>
       </Product>
     </MealItem>
   </MealsPlan>

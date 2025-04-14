@@ -28,7 +28,11 @@ public class MealItem
 
     public string GetDisplayType() =>
         Type == MealType.Custom ? CustomTypeName ?? "Custom" : Type.ToString();
+    
+    public decimal TotalCalories() => 
+        Products.Sum(p => p.Calories * (p.Gramms / 100));
 }
+
 
 
 public enum MealType
