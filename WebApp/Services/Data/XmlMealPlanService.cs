@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System.Globalization;
+using System.Xml.Linq;
 using WebApp.Models;
 
 namespace WebApp.Services.Data;
@@ -54,10 +55,11 @@ public class XmlMealPlanService
                                 new XElement("Product",
                                     new XElement("Name", p.Name),
                                     new XElement("Gramms", p.Gramms),
-                                    new XElement("Protein", p.Protein.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)),
-                                    new XElement("Fats", p.Fats.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)),
-                                    new XElement("Carbs", p.Carbs.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)),
-                                    new XElement("Calories", p.Calories)
+                                    new XElement("Protein", p.Protein.ToString("0.00", CultureInfo.InvariantCulture)),
+                                    new XElement("Fats", p.Fats.ToString("0.00", CultureInfo.InvariantCulture)),
+                                    new XElement("Carbs", p.Carbs.ToString("0.00", CultureInfo.InvariantCulture)),
+                                    // Исправлено: Добавлено форматирование для Calories
+                                    new XElement("Calories", p.Calories.ToString("0.00", CultureInfo.InvariantCulture))
                                 )
                             )
                         )

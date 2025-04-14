@@ -1,36 +1,19 @@
 ﻿@model WebApp.Models.MealItem
 @{
-    var types = (IEnumerable<WebApp.Models.MealType>)ViewBag.MealTypes;
     var allProducts = (List<WebApp.Models.Product>)ViewBag.AllProducts;
 }
 
 <h2>Создать приём пищи</h2>
 
 <form asp-action="Create" method="post">
-    <!-- Лента результатов поиска -->
+    <!-- Контейнер для результатов поиска, показывается при вводе названия продукта -->
     <div id="productResults" class="border p-2 mb-3 d-flex flex-nowrap gap-2 overflow-auto" 
          style="max-width: 100%; display: none;">
-        <!-- Сюда будут вставляться найденные продукты -->
-    </div>
-
-    <div class="form-group">
-        <label>Тип</label>
-        <select asp-for="Type" class="form-control" onchange="onTypeChange(this)">
-            @foreach (var t in types)
-            {
-                <option value="@t">@t</option>
-            }
-        </select>
-    </div>
-
-    <div class="form-group" id="customTypeNameDiv" style="display:none;">
-        <label>Свой тип</label>
-        <input asp-for="CustomTypeName" class="form-control"/>
     </div>
 
     <div class="form-group">
         <label>Название приёма</label>
-        <input asp-for="Name" class="form-control"/>
+        <input asp-for="Name" class="form-control" />
     </div>
 
     <div id="product-list" class="mb-3">
@@ -43,41 +26,85 @@
 
 <script>
     let productIndex = 0;
-    let activeProductIndex = -1;
     let allProducts = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(allProducts));
+    let selectedProducts = {};
 
+    // Функция для добавления нового продукта
     function addProduct() {
+        const index = productIndex;
         const list = document.getElementById('product-list');
         const wrapper = document.createElement('div');
         wrapper.className = "border p-2 mb-2 product-item";
 
+        // Поле для ввода названия продукта
         const nameInput = document.createElement('input');
-        nameInput.name = `Products[${productIndex}].Name`;
+        nameInput.name = `Products[${index}].Name`;
         nameInput.placeholder = "Название продукта";
         nameInput.className = "form-control mb-1 product-name";
         nameInput.required = true;
-        nameInput.setAttribute('data-index', productIndex);
+        nameInput.setAttribute('data-index', index);
         nameInput.addEventListener('input', (e) => handleProductSearch(e.target));
-        nameInput.addEventListener('focus', () => {
-            activeProductIndex = productIndex;
-            handleProductSearch(nameInput);
-        });
-
+        nameInput.addEventListener('focus', () => handleProductSearch(nameInput));
+        
+        // Если в модели есть поле для граммов, создадим его
         const grammsInput = document.createElement('input');
-        grammsInput.name = `Products[${productIndex}].Gramms`;
+        grammsInput.name = `Products[${index}].Gramms`;
         grammsInput.placeholder = "Граммы";
         grammsInput.className = "form-control mb-1";
         grammsInput.type = "number";
         grammsInput.required = true;
 
+        // Функция для создания видимого поля (белки, жиры, углеводы, калории)
+        const createVisibleField = (label, propName) => {
+            const group = document.createElement('div');
+            group.className = 'form-group';
+            const labelElem = document.createElement('label');
+            labelElem.textContent = label;
+            const input = document.createElement('input');
+            input.name = `Products[${index}].${propName}`;
+            input.className = "form-control mb-1";
+            input.readOnly = true;
+            group.appendChild(labelElem);
+            group.appendChild(input);
+            return group;
+        };
+
+        // Создаём видимые поля
+        const proteinGroup = createVisibleField('Белки (г)', 'Protein');
+        const fatsGroup = createVisibleField('Жиры (г)', 'Fats');
+        const carbsGroup = createVisibleField('Углеводы (г)', 'Carbs');
+        const caloriesGroup = createVisibleField('Калории (ккал)', 'Calories');
+
+        // Добавляем видимые поля в контейнер продукта
         wrapper.appendChild(nameInput);
         wrapper.appendChild(grammsInput);
-        list.appendChild(wrapper);
+        wrapper.appendChild(proteinGroup);
+        wrapper.appendChild(fatsGroup);
+        wrapper.appendChild(carbsGroup);
+        wrapper.appendChild(caloriesGroup);
 
+        // Добавляем скрытые инпуты для значений, чтобы гарантировать отправку данных на сервер
+        const addHiddenField = (fieldName) => {
+            const hidden = document.createElement('input');
+            hidden.type = 'hidden';
+            hidden.name = `Products[${index}].${fieldName}`;
+            wrapper.appendChild(hidden);
+            return hidden;
+        };
+
+        // Создаём скрытые поля для белков, жиров, углеводов и калорий
+        addHiddenField('Protein');
+        addHiddenField('Fats');
+        addHiddenField('Carbs');
+        addHiddenField('Calories');
+
+        list.appendChild(wrapper);
+        selectedProducts[index] = null;
         productIndex++;
         nameInput.focus();
     }
 
+    // Функция для поиска продуктов по введённому названию
     function handleProductSearch(input) {
         const searchTerm = input.value.toLowerCase();
         const resultsContainer = document.getElementById('productResults');
@@ -88,7 +115,6 @@
             return;
         }
 
-        // Фильтруем продукты по имени
         const matches = allProducts.filter(p => p.Name.toLowerCase().includes(searchTerm));
 
         if (matches.length > 0) {
@@ -96,10 +122,9 @@
                 const item = document.createElement('div');
                 item.className = 'product-card border rounded p-2';
                 item.style.minWidth = '150px';
-                item.style.cursor = 'pointer';
                 item.innerHTML = `
                     <div>${product.Name}</div>
-                    <small class="text-muted">${product.Calories} ккал/100г</small>
+                    <small>Б: ${product.Protein} | Ж: ${product.Fats} | У: ${product.Carbs}</small>
                 `;
                 item.onclick = () => selectProduct(product, input);
                 resultsContainer.appendChild(item);
@@ -110,10 +135,44 @@
         }
     }
 
+    // При выборе продукта – заполняем видимые и скрытые поля нужными значениями
     function selectProduct(product, input) {
+        const index = input.dataset.index;
+        const wrapper = input.closest('.product-item');
+
+        // Обновляем видимые поля с преобразованием десятичных значений для русской локали
+        const proteinInput = wrapper.querySelector(`input[name="Products[${index}].Protein"]`);
+        const fatsInput = wrapper.querySelector(`input[name="Products[${index}].Fats"]`);
+        const carbsInput = wrapper.querySelector(`input[name="Products[${index}].Carbs"]`);
+        const caloriesInput = wrapper.querySelector(`input[name="Products[${index}].Calories"]`);
+
+        proteinInput.value = product.Protein.toLocaleString('ru-RU');
+        fatsInput.value = product.Fats.toLocaleString('ru-RU');
+        carbsInput.value = product.Carbs.toLocaleString('ru-RU');
+        caloriesInput.value = product.Calories.toLocaleString('ru-RU');
+
+        // Обновляем скрытые поля – их значения должны соответствовать тем же форматным требованиям
+        const hiddenInputs = wrapper.querySelectorAll('input[type="hidden"]');
+        if (hiddenInputs.length >= 4) {
+            hiddenInputs[0].value = product.Protein.toLocaleString('ru-RU');
+            hiddenInputs[1].value = product.Fats.toLocaleString('ru-RU');
+            hiddenInputs[2].value = product.Carbs.toLocaleString('ru-RU');
+            hiddenInputs[3].value = product.Calories.toLocaleString('ru-RU');
+        }
+
+        // Устанавливаем название продукта
         input.value = product.Name;
-        const grammsInput = input.parentElement.querySelector('input[type="number"]');
-        if (grammsInput) grammsInput.focus();
+        selectedProducts[index] = product;
         document.getElementById('productResults').style.display = 'none';
     }
 </script>
+
+<style>
+    .product-card:hover {
+        background: #f8f9fa;
+    }
+    .product-card small {
+        font-size: 0.8em;
+        color: #666;
+    }
+</style>

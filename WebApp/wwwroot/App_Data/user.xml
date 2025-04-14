@@ -1,62 +1,112 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Db>
   <MealsPlan>
-    <MealItem name="Amoeba" type="Breakfast">
+    <MealItem name="ауайау" type="Breakfast">
       <Product>
-        <Name>залупа</Name>
-        <Gramms>13</Gramms>
-        <Protein>0.00</Protein>
-        <Fats>0.00</Fats>
-        <Carbs>0.00</Carbs>
-        <Calories>0</Calories>
-      </Product>
-      <Product>
-        <Name>говно</Name>
-        <Gramms>2000</Gramms>
-        <Protein>0.00</Protein>
-        <Fats>0.00</Fats>
-        <Carbs>0.00</Carbs>
-        <Calories>0</Calories>
-      </Product>
-    </MealItem>
-    <MealItem name="Параша какая-то" type="Dinner">
-      <Product>
-        <Name>го</Name>
-        <Gramms>20000</Gramms>
-        <Protein>0.00</Protein>
-        <Fats>0.00</Fats>
-        <Carbs>0.00</Carbs>
-        <Calories>0</Calories>
-      </Product>
-    </MealItem>
-    <MealItem name="Параша кака" type="Custom" customTypeName="Полдник">
-      <Product>
-        <Name>Белочный бульон</Name>
-        <Gramms>133</Gramms>
-        <Protein>0.00</Protein>
-        <Fats>0.00</Fats>
-        <Carbs>0.00</Carbs>
-        <Calories>0</Calories>
-      </Product>
-    </MealItem>
-    <MealItem name="хуйня ебаная" type="Breakfast">
-      <Product>
-        <Name>Мозги говяжьи</Name>
+        <Name>Шампиньоны</Name>
         <Gramms>100</Gramms>
         <Protein>0.00</Protein>
         <Fats>0.00</Fats>
         <Carbs>0.00</Carbs>
-        <Calories>0</Calories>
+        <Calories>0.00</Calories>
       </Product>
     </MealItem>
-    <MealItem name="Amoeba" type="Breakfast">
+    <MealItem name="ирпиыап" type="Breakfast">
       <Product>
-        <Name>Блины</Name>
-        <Gramms>30</Gramms>
+        <Name>Опята</Name>
+        <Gramms>10031</Gramms>
         <Protein>0.00</Protein>
         <Fats>0.00</Fats>
         <Carbs>0.00</Carbs>
-        <Calories>0</Calories>
+        <Calories>0.00</Calories>
+      </Product>
+    </MealItem>
+    <MealItem name="спорт" type="Breakfast">
+      <Product>
+        <Name>Масло арахисовое рафинир.</Name>
+        <Gramms>100</Gramms>
+        <Protein>0.00</Protein>
+        <Fats>0.00</Fats>
+        <Carbs>0.00</Carbs>
+        <Calories>0.00</Calories>
+      </Product>
+    </MealItem>
+    <MealItem name="питательный" type="Breakfast">
+      <Product>
+        <Name>Масло арахисовое рафинир.</Name>
+        <Gramms>100</Gramms>
+        <Protein>0.00</Protein>
+        <Fats>0.00</Fats>
+        <Carbs>0.00</Carbs>
+        <Calories>899.00</Calories>
+      </Product>
+    </MealItem>
+    <MealItem name="ыры" type="Breakfast">
+      <Product>
+        <Name>Масло арахисовое рафинир.</Name>
+        <Gramms>100</Gramms>
+        <Protein>0.00</Protein>
+        <Fats>0.00</Fats>
+        <Carbs>0.00</Carbs>
+        <Calories>899.00</Calories>
+      </Product>
+      <Product>
+        <Name>Гречневая каша (Myllyn Paras)</Name>
+        <Gramms>100</Gramms>
+        <Protein>13.00</Protein>
+        <Fats>0.00</Fats>
+        <Carbs>0.00</Carbs>
+        <Calories>340.00</Calories>
+      </Product>
+    </MealItem>
+    <MealItem name="rfrjq" type="Breakfast">
+      <Product>
+        <Name>Гречневая каша (Myllyn Paras)</Name>
+        <Gramms>100</Gramms>
+        <Protein>13.00</Protein>
+        <Fats>0.00</Fats>
+        <Carbs>0.00</Carbs>
+        <Calories>340.00</Calories>
+      </Product>
+    </MealItem>
+    <MealItem name="фв" type="Breakfast">
+      <Product>
+        <Name>Шампиньоны</Name>
+        <Gramms>100</Gramms>
+        <Protein>0.00</Protein>
+        <Fats>0.00</Fats>
+        <Carbs>0.00</Carbs>
+        <Calories>34.00</Calories>
+      </Product>
+    </MealItem>
+    <MealItem name="спорт" type="Breakfast">
+      <Product>
+        <Name>Сыр Моццарелла Santa Lucia (Galbani)</Name>
+        <Gramms>144</Gramms>
+        <Protein>19.00</Protein>
+        <Fats>20.00</Fats>
+        <Carbs>0.00</Carbs>
+        <Calories>262.00</Calories>
+      </Product>
+    </MealItem>
+    <MealItem name="shfsfhsfh" type="Breakfast">
+      <Product>
+        <Name>Сыр Моццарелла Santa Lucia (Galbani)</Name>
+        <Gramms>1414</Gramms>
+        <Protein>19.00</Protein>
+        <Fats>20.00</Fats>
+        <Carbs>0.00</Carbs>
+        <Calories>262.00</Calories>
+      </Product>
+    </MealItem>
+    <MealItem name="ывппфв" type="Breakfast">
+      <Product>
+        <Name>Сыр Моццарелла Santa Lucia (Galbani)</Name>
+        <Gramms>333</Gramms>
+        <Protein>19.00</Protein>
+        <Fats>20.00</Fats>
+        <Carbs>1.50</Carbs>
+        <Calories>262.00</Calories>
       </Product>
     </MealItem>
   </MealsPlan>

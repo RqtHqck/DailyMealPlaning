@@ -17,6 +17,7 @@ public class MealController(XmlProductService productService, XmlMealPlanService
     [HttpGet]
     public IActionResult Create()
     {
+        
         ViewBag.MealTypes = Enum.GetValues(typeof(MealType)).Cast<MealType>();
         ViewBag.AllProducts = productService.GetAllProducts(); // Получаем все продукты
         return View(new MealItem());
@@ -25,6 +26,12 @@ public class MealController(XmlProductService productService, XmlMealPlanService
     [HttpPost]
     public IActionResult Create(MealItem item)
     {
+        
+        foreach (var p in item.Products)
+        {
+            Console.WriteLine($"Product: {p.Name}, {p.Protein}, {p.Fats}, {p.Carbs}, {p.Calories}");
+        }
+
         var plan = _mealPlanService.GetMealPlan();
         plan.MealItems.Add(item);
         _mealPlanService.SaveMealPlan(plan);
