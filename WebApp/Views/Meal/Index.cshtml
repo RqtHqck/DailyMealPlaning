@@ -1,18 +1,170 @@
 ﻿@model List<MealItem>
 
+@* Убедитесь, что Bootstrap подключён в вашем Layout или прямо на странице *@
 
 <h2>План питания</h2>
-<a asp-action="Create" class="btn btn-primary">Добавить приём пищи</a>
 
-@foreach (var item in Model)
+<a asp-action="Create" class="btn btn-primary mb-3">Добавить приём пищи</a>
+
+@{
+    int mealIndex = 0;
+}
+@foreach (var meal in Model)
 {
-    <div class="card mt-3 p-2">
-        <h4>@item.GetDisplayType() - @item.Name</h4>
-        <ul>
-            @foreach (var product in item.Products)
-            {
-                <li>@product.Name (@product.Gramms г, Б: @product.Protein, Ж: @product.Fats, У: @product.Carbs)</li>
-            }
-        </ul>
+    <div class="card mt-3">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <div>
+                <h4 class="mb-0">@meal.GetDisplayType() - @meal.Name</h4>
+            </div>
+            <div>
+                <!-- Кнопка для редактирования приёма – откроет модальное окно -->
+                <button type="button" class="btn btn-sm btn-info me-1" onclick="openEditModal(@mealIndex)">Редактировать приём</button>
+                <form asp-action="DeleteMeal" method="post" onsubmit="return confirm('Вы уверены, что хотите удалить этот приём пищи?');" class="d-inline">
+                    <input type="hidden" name="index" value="@mealIndex" />
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-sm btn-danger">Удалить приём</button>
+                </form>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="d-flex flex-wrap gap-3">
+                @{
+                    int productIndex = 0;
+                }
+                @foreach (var product in meal.Products)
+                {
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Name</h5>
+                            <p class="card-text">
+                                <span class="badge bg-secondary me-2">Вес: @product.Gramms г</span>
+                                <span class="badge bg-primary me-2">Б: @product.Protein</span>
+                                <span class="badge bg-success me-2">Ж: @product.Fats</span>
+                                <span class="badge bg-info">У: @product.Carbs</span>
+                            </p>
+                            <form asp-action="DeleteProduct" method="post" onsubmit="return confirm('Вы уверены, что хотите удалить этот продукт?');">
+                                <input type="hidden" name="mealIndex" value="@mealIndex" />
+                                <input type="hidden" name="productIndex" value="@productIndex" />
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-sm btn-danger">Удалить продукт</button>
+                            </form>
+                        </div>
+                    </div>
+                    productIndex++;
+                }
+            </div>
+        </div>
     </div>
+
+    <!-- Модальное окно для редактирования приёма пищи -->
+    <div class="modal fade" id="editMealModal-@mealIndex" tabindex="-1" aria-labelledby="editMealModalLabel-@mealIndex" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form asp-action="UpdateMeal" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="mealIndex" value="@mealIndex" />
+            <div class="modal-header">
+              <h5 class="modal-title" id="editMealModalLabel-@mealIndex">Редактировать приём: @meal.Name</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label">Название приёма</label>
+                <input type="text" name="Name" class="form-control" value="@meal.Name" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Тип приёма</label>
+                <select name="Type" class="form-select">
+                    @foreach(var t in Enum.GetValues(typeof(MealType)))
+                    {
+                    if(meal.Type.Equals(t))
+                    {
+                    <option value="@t" selected="selected">@t</option>
+                    }
+                    else
+                    {
+                    <option value="@t">@t</option>
+                    }
+                    }
+
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Продукты (изменить только вес)</label>
+                <div id="editProductsContainer-@mealIndex" class="row">
+                  @{
+                    int editProductIndex = 0;
+                  }
+                  @foreach(var product in meal.Products)
+                  {
+                    <div class="col-md-6 mb-3 edit-product">
+                      <div class="card">
+                        <div class="card-body">
+                          <h6 class="card-title">@product.Name</h6>
+                          <div class="mb-2">
+                            <label class="form-label small">Вес (г):</label>
+                            <input type="number" name="Products[@editProductIndex].Gramms" class="form-control" value="@product.Gramms" required />
+                          </div>
+                          <input type="hidden" name="Products[@editProductIndex].Name" value="@product.Name" />
+                        </div>
+                      </div>
+                    </div>
+                    editProductIndex++;
+                  }
+                </div>
+                @* Если нужно добавить новые продукты в режиме редактирования, можно добавить кнопку и функционал *@
+                @* <button type="button" class="btn btn-secondary" onclick="addEditProduct(@mealIndex)">Добавить продукт</button> *@
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+              <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    mealIndex++;
+}
+
+@section Scripts {
+    <script>
+        // Функция открытия модального окна редактирования приема с использованием Bootstrap Modal API
+        function openEditModal(mealIndex){
+            var modalEl = document.getElementById("editMealModal-" + mealIndex);
+            var modal = new bootstrap.Modal(modalEl);
+            modal.show();
+        }
+
+        // Если понадобится функция для удаления продукта внутри модального окна (при динамическом добавлении/удалении), можно добавить её здесь:
+        function removeEditProduct(btn) {
+            var productDiv = btn.closest('.edit-product');
+            if (productDiv) {
+                productDiv.remove();
+            }
+        }
+
+        // Если потребуется динамическое добавление нового продукта в модальном окне, можно реализовать функцию addEditProduct
+        function addEditProduct(mealIndex) {
+            var container = document.getElementById("editProductsContainer-" + mealIndex);
+            var index = container.children.length;
+            var div = document.createElement("div");
+            div.className = "col-md-6 mb-3 edit-product";
+            div.innerHTML = `
+              <div class="card">
+                <div class="card-body">
+                  <h6 class="card-title">Новый продукт</h6>
+                  <div class="mb-2">
+                      <label class="form-label small">Вес (г):</label>
+                      <input type="number" name="Products[${index}].Gramms" class="form-control" required />
+                  </div>
+                  <input type="hidden" name="Products[${index}].Name" value="Новый продукт" />
+                  <button type="button" class="btn btn-sm btn-danger" onclick="removeEditProduct(this)">Удалить продукт</button>
+                </div>
+              </div>
+            `;
+            container.appendChild(div);
+        }
+    </script>
 }

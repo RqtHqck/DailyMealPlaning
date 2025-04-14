@@ -1,112 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Db>
   <MealsPlan>
-    <MealItem name="ауайау" type="Breakfast">
+    <MealItem name="Спорт" type="Dinner">
       <Product>
-        <Name>Шампиньоны</Name>
-        <Gramms>100</Gramms>
-        <Protein>0.00</Protein>
-        <Fats>0.00</Fats>
-        <Carbs>0.00</Carbs>
-        <Calories>0.00</Calories>
-      </Product>
-    </MealItem>
-    <MealItem name="ирпиыап" type="Breakfast">
-      <Product>
-        <Name>Опята</Name>
-        <Gramms>10031</Gramms>
-        <Protein>0.00</Protein>
-        <Fats>0.00</Fats>
-        <Carbs>0.00</Carbs>
-        <Calories>0.00</Calories>
-      </Product>
-    </MealItem>
-    <MealItem name="спорт" type="Breakfast">
-      <Product>
-        <Name>Масло арахисовое рафинир.</Name>
-        <Gramms>100</Gramms>
-        <Protein>0.00</Protein>
-        <Fats>0.00</Fats>
-        <Carbs>0.00</Carbs>
-        <Calories>0.00</Calories>
-      </Product>
-    </MealItem>
-    <MealItem name="питательный" type="Breakfast">
-      <Product>
-        <Name>Масло арахисовое рафинир.</Name>
-        <Gramms>100</Gramms>
-        <Protein>0.00</Protein>
-        <Fats>0.00</Fats>
-        <Carbs>0.00</Carbs>
-        <Calories>899.00</Calories>
-      </Product>
-    </MealItem>
-    <MealItem name="ыры" type="Breakfast">
-      <Product>
-        <Name>Масло арахисовое рафинир.</Name>
-        <Gramms>100</Gramms>
-        <Protein>0.00</Protein>
-        <Fats>0.00</Fats>
-        <Carbs>0.00</Carbs>
-        <Calories>899.00</Calories>
+        <Name>Белые грибы сушеные</Name>
+        <Gramms>20</Gramms>
+        <Protein>20.10</Protein>
+        <Fats>4.80</Fats>
+        <Carbs>7.60</Carbs>
+        <Calories>152.00</Calories>
       </Product>
       <Product>
-        <Name>Гречневая каша (Myllyn Paras)</Name>
-        <Gramms>100</Gramms>
-        <Protein>13.00</Protein>
-        <Fats>0.00</Fats>
-        <Carbs>0.00</Carbs>
-        <Calories>340.00</Calories>
-      </Product>
-    </MealItem>
-    <MealItem name="rfrjq" type="Breakfast">
-      <Product>
-        <Name>Гречневая каша (Myllyn Paras)</Name>
-        <Gramms>100</Gramms>
-        <Protein>13.00</Protein>
-        <Fats>0.00</Fats>
-        <Carbs>0.00</Carbs>
-        <Calories>340.00</Calories>
-      </Product>
-    </MealItem>
-    <MealItem name="фв" type="Breakfast">
-      <Product>
-        <Name>Шампиньоны</Name>
-        <Gramms>100</Gramms>
-        <Protein>0.00</Protein>
-        <Fats>0.00</Fats>
-        <Carbs>0.00</Carbs>
-        <Calories>34.00</Calories>
-      </Product>
-    </MealItem>
-    <MealItem name="спорт" type="Breakfast">
-      <Product>
-        <Name>Сыр Моццарелла Santa Lucia (Galbani)</Name>
-        <Gramms>144</Gramms>
-        <Protein>19.00</Protein>
-        <Fats>20.00</Fats>
-        <Carbs>0.00</Carbs>
-        <Calories>262.00</Calories>
-      </Product>
-    </MealItem>
-    <MealItem name="shfsfhsfh" type="Breakfast">
-      <Product>
-        <Name>Сыр Моццарелла Santa Lucia (Galbani)</Name>
-        <Gramms>1414</Gramms>
-        <Protein>19.00</Protein>
-        <Fats>20.00</Fats>
-        <Carbs>0.00</Carbs>
-        <Calories>262.00</Calories>
-      </Product>
-    </MealItem>
-    <MealItem name="ывппфв" type="Breakfast">
-      <Product>
-        <Name>Сыр Моццарелла Santa Lucia (Galbani)</Name>
-        <Gramms>333</Gramms>
-        <Protein>19.00</Protein>
-        <Fats>20.00</Fats>
-        <Carbs>1.50</Carbs>
-        <Calories>262.00</Calories>
+        <Name>Молоко 3.2%-ной жирн.</Name>
+        <Gramms>70</Gramms>
+        <Protein>2.80</Protein>
+        <Fats>3.20</Fats>
+        <Carbs>4.70</Carbs>
+        <Calories>58.00</Calories>
       </Product>
     </MealItem>
   </MealsPlan>
